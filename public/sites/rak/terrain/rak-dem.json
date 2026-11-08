@@ -1,0 +1,24 @@
+{
+ "size": 512,
+ "metresPerCell": 85.5,
+ "maxElevation": 2057,
+ "source": "AWS Terrain Tiles (terrarium, z12) — SRTM/GMTED/ETOPO1 via Mapzen. Tiles x2684-2688, y1740-1744.",
+ "markers": {
+  "jebelJais": {
+   "grid": [
+    308,
+    217.6
+   ],
+   "lat": 25.9482,
+   "lon": 56.1628
+  },
+  "rakCity": {
+   "grid": [
+    48.4,
+    422.4
+   ],
+   "lat": 25.79,
+   "lon": 55.94
+  }
+ }
+}

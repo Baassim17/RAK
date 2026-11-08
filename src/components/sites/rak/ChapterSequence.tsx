@@ -21,7 +21,7 @@ export function ChapterSequence({ children }: { children: ReactNode }) {
       const frame = panel.querySelector(".chap-frame");
       if (!frame) return;
       const layers = Array.from(frame.querySelectorAll(".chap-layer"));
-      const backdrops = Array.from(frame.querySelectorAll(".chap-backdrop"));
+      const backdrops = Array.from(panel.querySelectorAll(".chap-backdrop"));
       const headlines = Array.from(frame.querySelectorAll(".chap-frame-title"));
       panel.classList.add("is-pinned");
       gsap.set([...chapters.slice(1), ...headlines.slice(1)], { autoAlpha: 0 });

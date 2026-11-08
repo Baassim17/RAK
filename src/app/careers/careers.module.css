@@ -1,0 +1,213 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(30px, 7vw, 110px);
+  padding-block: clamp(106px, 10vw, 150px) clamp(42px, 6vw, 86px);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+}
+
+.eyebrow::before {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  content: "";
+}
+
+.hero h1, .roles h2, .enquiry h2 {
+  margin: 0;
+  font-weight: 450;
+  letter-spacing: -0.065em;
+  line-height: 1.02;
+  text-wrap: pretty;
+}
+
+.hero h1 { font-size: clamp(2.9rem, 6.6vw, 6.7rem); }
+.hero h1 span { display: block; color: var(--red); }
+.lead {
+  max-width: 48ch;
+  margin: 22px 0 0;
+  color: var(--ink-muted);
+  font-size: clamp(1rem, 1.45vw, 1.2rem);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  margin-top: 24px;
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.textLink:hover { color: var(--red); }
+
+.portrait {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: end;
+  min-height: clamp(340px, 35vw, 525px);
+  margin: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--charcoal);
+  color: var(--light-grey);
+}
+
+.portrait img { object-fit: cover; object-position: 25% 50%; }
+
+.portrait::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 38%;
+  background: linear-gradient(transparent, rgba(2, 10, 31, 0.85));
+  content: "";
+}
+
+.portrait figcaption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3px 14px;
+  width: 100%;
+  padding: 16px clamp(14px, 2vw, 24px);
+  font-size: 0.78rem;
+}
+
+.roles {
+  padding-block: clamp(40px, 6vw, 84px);
+  background: var(--charcoal);
+  color: var(--light-grey);
+  scroll-margin-top: 80px;
+}
+
+.roles .eyebrow::before { background: #ff6e73; }
+
+.rolesHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 38ch);
+  align-items: end;
+  gap: 14px 36px;
+  margin-bottom: clamp(20px, 3vw, 42px);
+}
+
+.roles h2, .enquiry h2 { font-size: clamp(2.3rem, 4.4vw, 4.5rem); }
+.rolesHead > p { margin: 0; color: var(--stone-grey); text-wrap: pretty; }
+.roleList { border-top: 1px solid var(--line); }
+.role { border-bottom: 1px solid var(--line); }
+
+.role summary {
+  display: grid;
+  grid-template-columns: minmax(32px, 0.18fr) minmax(0, 1.6fr) minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 12px;
+  min-height: 74px;
+  padding-block: 14px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.role summary::-webkit-details-marker { display: none; }
+.roleNumber { color: #ff6e73; }
+.roleTitle { font-size: clamp(1.35rem, 2.6vw, 2.5rem); font-weight: 470; letter-spacing: -0.045em; line-height: 1.12; }
+.roleFocus { color: var(--stone-grey); font-size: 0.93rem; }
+
+.toggle {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: linear-gradient(currentColor, currentColor) center / 12px 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1px 12px no-repeat;
+}
+
+.role[open] .toggle { background-size: 12px 1px, 0 0; }
+.role summary:hover .toggle, .role[open] .toggle { border-color: #ff6e73; color: #ff6e73; }
+
+.roleContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 14px 36px;
+  padding: 0 48px 24px max(44px, 6.5%);
+  color: var(--stone-grey);
+}
+
+.roleContent p { margin: 0; }
+.roleContent ul { margin: 10px 0 0; padding-left: 18px; list-style: disc; }
+.roleContent li + li { margin-top: 4px; }
+.experience { align-self: start; padding-left: 14px; border-left: 1px solid #ff6e73; }
+.experience strong { display: block; margin-bottom: 4px; color: var(--light-grey); font-weight: 600; }
+
+.enquiry {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: start;
+  gap: clamp(26px, 6vw, 90px);
+  padding-block: clamp(44px, 7vw, 96px);
+  scroll-margin-top: 30px;
+}
+
+.steps { margin: 22px 0 0; padding: 0; list-style: none; counter-reset: step; }
+
+.steps li {
+  position: relative;
+  padding: 14px 0 14px 42px;
+  border-top: 1px solid var(--line-dark);
+  counter-increment: step;
+}
+
+.steps li::before {
+  position: absolute;
+  left: 0;
+  top: 17px;
+  color: var(--red);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  content: counter(step, decimal-leading-zero);
+}
+
+.steps h3, .contact h3 { margin: 0; font-weight: 600; }
+.steps p, .contact > p { margin: 4px 0 0; color: var(--ink-muted); }
+.contact {
+  padding: clamp(20px, 4vw, 48px);
+  border: 1px solid var(--line-dark);
+  border-radius: 8px;
+  background: var(--raised-grey);
+}
+
+.contact h3 { font-size: clamp(1.35rem, 2vw, 1.85rem); letter-spacing: -0.04em; line-height: 1.1; }
+.contact > p { margin-block: 12px 18px; }
+.contact > a { max-width: 100%; }
+.contact > a > span { flex: none; }
+.roles summary:focus-visible { outline: 2px solid #ff6e73; outline-offset: 3px; }
+.hero a:focus-visible, .contact a:focus-visible { outline: 2px solid var(--red-on-stone); outline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .hero, .rolesHead, .enquiry { grid-template-columns: minmax(0, 1fr); }
+  .hero { gap: 26px; }
+  .portrait { min-height: clamp(250px, 64vw, 400px); }
+  .role summary { grid-template-columns: 26px minmax(0, 1fr) 36px; gap: 5px 10px; }
+  .roleFocus { grid-area: 2 / 2; }
+  .toggle { grid-area: 1 / 3 / 3; }
+  .roleContent { grid-template-columns: 1fr; padding: 0 0 20px 36px; }
+}
+

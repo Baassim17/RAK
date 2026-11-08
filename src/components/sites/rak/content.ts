@@ -17,7 +17,7 @@ export const company = {
 };
 
 export type Service = {
-  id: string;
+  id: "commercial" | "guarding" | "events" | "cit" | "protection" | "cctv";
   no: string;
   title: string;
   short: string;
@@ -134,7 +134,12 @@ export const heroStory: HeroChapter[] = [
   },
 ];
 
-type Sector = { id: string; name: string; description: string; photo?: { src: string; alt: string } };
+export type Sector = {
+  id: "government" | "commercial" | "industrial" | "residential" | "healthcare" | "education" | "retail" | "hospitality" | "construction" | "logistics";
+  name: string;
+  description: string;
+  photo?: { src: string; alt: string };
+};
 
 export const sectors: Sector[] = [
   {
@@ -229,21 +234,16 @@ export const who = {
   ] satisfies Pillar[],
 };
 
-/* "Trusted by" strip. ⚠ DEMO PLACEHOLDERS — invented names, not real clients.
-   Replace with real clients (with their permission): set `name`, and `logo` to a file
-   in /public/sites/rak/clients/ (SVG or transparent PNG). When `logo` is set it is shown
-   instead of the placeholder wordmark. */
-export type Client = { name: string; sector: string; logo?: string };
-
-export const clients: Client[] = [
-  { name: "Aldara Hotels", sector: "Hospitality" },
-  { name: "Marlin Bay", sector: "Residential" },
-  { name: "Sahra Logistics", sector: "Industrial" },
-  { name: "Qasr Holdings", sector: "Commercial" },
-  { name: "Corniche Retail", sector: "Retail" },
-  { name: "Falaj Events", sector: "Events" },
-  { name: "Noorhaus", sector: "Residential" },
-  { name: "Dune & Co.", sector: "Commercial" },
+// Illustrative brands with original demo logo artwork.
+export const demoBrands = [
+  { name: "Aldara Hotels", logo: "aldara-hotels" },
+  { name: "Marlin Bay", logo: "marlin-bay" },
+  { name: "Sahra Logistics", logo: "sahra-logistics" },
+  { name: "Qasr Holdings", logo: "qasr-holdings" },
+  { name: "Corniche Retail", logo: "corniche-retail" },
+  { name: "Falaj Events", logo: "falaj-events" },
+  { name: "Noorhaus", logo: "noorhaus" },
+  { name: "Dune & Co.", logo: "dune-and-co" },
 ];
 
 export const faqs: { q: string; a: string; placeholder?: boolean }[] = [

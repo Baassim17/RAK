@@ -3,7 +3,7 @@ import { ChapterSequence } from "./ChapterSequence";
 import { services } from "./content";
 
 const total = String(services.length).padStart(2, "0");
-const framePhotoSizes = "(max-width: 1680px) 36vw, 505px";
+const framePhotoSizes = "(max-width: 1680px) 42vw, 570px";
 
 export function Chapters() {
   return (
@@ -13,12 +13,21 @@ export function Chapters() {
           The Protection <span>We Provide</span>
         </h2>
         <div className="chap-layout">
+          <div className="chap-backdrops" aria-hidden="true">
+            <svg className="chap-blur-filter" width="0" height="0">
+              <filter id="chapter-motion-blur">
+                <feGaussianBlur stdDeviation="20 5" />
+              </filter>
+            </svg>
+            {services.map(({ id, img }) => (
+              <div className="chap-backdrop" key={id}>
+                <Image src={img} alt="" fill sizes="(max-width: 1680px) 50vw, 800px" />
+              </div>
+            ))}
+          </div>
           <div className="chap-list">
             {services.map((service) => (
               <article className="chap-item" key={service.id}>
-                <div className="chap-inline-photo">
-                  <Image src={service.img} alt={service.alt} fill sizes="(max-width: 960px) 92vw, 760px" />
-                </div>
                 <div className="chap-copy">
                   <p className="label chap-no">{service.no} / {total} · {service.short}</p>
                   <h3 className="chap-title">{service.title}</h3>
@@ -32,37 +41,31 @@ export function Chapters() {
                     {service.tags.map((tag) => <li key={tag}>{tag}</li>)}
                   </ul>
                 </div>
+                <figure className="chap-inline-media">
+                  <figcaption className="chap-statement"><strong>{service.chapter.emphasis}</strong> {service.chapter.heading}</figcaption>
+                  <div className="chap-inline-photo">
+                    <Image src={service.img} alt={service.alt} fill sizes="(max-width: 960px) 92vw, 760px" />
+                  </div>
+                </figure>
               </article>
             ))}
           </div>
-          <div className="chap-frame" aria-hidden="true">
-            <svg className="chap-blur-filter" width="0" height="0">
-              <filter id="chapter-motion-blur">
-                <feGaussianBlur stdDeviation="20 5" />
-              </filter>
-            </svg>
-            <div className="chap-backdrops">
-              {services.map(({ id, img }) => (
-                <div className="chap-backdrop" key={id}>
-                  <Image src={img} alt="" fill sizes={framePhotoSizes} />
-                </div>
+          <div className="chap-frame">
+            <div className="chap-statements">
+              {services.map(({ id, chapter }) => (
+                <p className="chap-statement chap-frame-title" key={id}><strong>{chapter.emphasis}</strong> {chapter.heading}</p>
               ))}
             </div>
-            {services.map(({ id, chapter }) => (
-              <p className="chap-frame-title" key={id}><strong>{chapter.emphasis}</strong> {chapter.heading}</p>
-            ))}
-            <div className="chap-mat">
-              <div className="chap-window">
-                {services.map((service) => (
-                  <div className="chap-layer" key={service.id}>
-                    <Image src={service.img} alt="" fill sizes={framePhotoSizes} />
-                    <div className="chap-caption label">
-                      <span>{service.short}</span>
-                      <span>{service.no} / {total}</span>
-                    </div>
+            <div className="chap-window" aria-hidden="true">
+              {services.map((service) => (
+                <div className="chap-layer" key={service.id}>
+                  <Image src={service.img} alt="" fill sizes={framePhotoSizes} />
+                  <div className="chap-caption label">
+                    <span>{service.short}</span>
+                    <span>{service.no} / {total}</span>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194 56">
+    <path d="M5 45V25a18 18 0 0 1 36 0v20M11 45V25a12 12 0 0 1 24 0v20" fill="none" stroke="black" stroke-width="2"/>
+    <path d="m16 43 7-18 7 18m-12-5h10" fill="none" stroke="black" stroke-width="2"/>
+    <text x="50" y="31" font-family="Georgia, serif" font-size="25" letter-spacing="2">ALDARA</text>
+    <text x="53" y="46" font-family="Arial, sans-serif" font-size="10" letter-spacing="4">HOTELS</text>
+</svg>

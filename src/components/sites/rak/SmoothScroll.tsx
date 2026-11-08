@@ -39,7 +39,7 @@ export function SmoothScroll() {
   }, []);
 
   useEffect(() => {
-    lenis?.scrollTo(0, { immediate: true });
+    if (!window.location.hash) lenis?.scrollTo(0, { immediate: true });
     if (reducedMotion()) return;
     let ctx: gsap.Context | undefined;
     // wait one frame so page components have created their pinned triggers first

@@ -45,24 +45,12 @@
 .lead { max-width: 43ch; margin: 20px 0 28px; color: var(--stone-grey); font-size: clamp(1rem, 1.35vw, 1.2rem); }
 
 .hero.centered {
-  position: relative;
-  isolation: isolate;
   grid-template-columns: minmax(0, 1fr);
   justify-items: center;
   min-height: clamp(400px, 44vw, 650px);
   padding-block: clamp(44px, 6vw, 88px);
   background: radial-gradient(ellipse at 50% 0%, #354149, transparent 76%), var(--charcoal);
   text-align: center;
-}
-
-.centered::before {
-  position: absolute;
-  z-index: -1;
-  inset: clamp(9px, 1.15vw, 18px);
-  border: 1px solid #ffffff1c;
-  border-radius: max(4px, calc(var(--radius) - 7px));
-  pointer-events: none;
-  content: "";
 }
 
 .centered .copy { width: min(100%, 920px); }

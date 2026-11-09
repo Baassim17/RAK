@@ -62,12 +62,8 @@
 
 .index {
   display: grid;
-  gap: 4px;
+  gap: 6px;
   margin-top: 20px;
-  padding: 8px;
-  border: 1px solid var(--line-dark);
-  border-radius: 12px;
-  background: var(--light-grey);
 }
 
 .index a {
@@ -77,16 +73,16 @@
   gap: 8px;
   min-height: 44px;
   padding: 6px 10px;
-  border: 1px solid transparent;
+  border: 1px solid var(--line-dark);
   border-radius: 6px;
+  background: var(--light-grey);
   font-size: 0.93rem;
   font-weight: 550;
 }
 
 .index a > span:first-child, .entryNumber { color: var(--red-on-stone); }
 .index a:is(:hover, :focus-visible) {
-  border-color: var(--line-dark);
-  background: var(--raised-grey);
+  border-color: var(--red-on-stone);
   color: var(--red-on-stone);
 }
 
@@ -150,15 +146,13 @@
 .coverage dl {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 0 18px;
   margin: 0;
 }
 
 .coverage dl > div {
-  padding: 13px;
-  border: 1px solid var(--line-dark);
-  border-radius: 6px;
-  background: var(--raised-grey);
+  padding: 11px 0;
+  border-top: 1px solid var(--line-dark);
 }
 
 .coverage dt, .brief strong { font-weight: 620; }
@@ -230,7 +224,6 @@
 @media (max-width: 1000px) {
   .directoryInner { grid-template-columns: minmax(0, 1fr); }
   .index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .index a { border-color: var(--line-dark); }
 }
 
 @media (max-width: 760px) {
@@ -245,14 +238,6 @@
 
 @media (max-width: 520px) {
   .coverage dl, .brief { grid-template-columns: minmax(0, 1fr); }
-  .coverage dl { gap: 0; }
-  .coverage dl > div {
-    padding: 11px 0;
-    border: 0;
-    border-top: 1px solid var(--line-dark);
-    border-radius: 0;
-    background: transparent;
-  }
   .brief a { width: 100%; justify-content: space-between; }
 }
 

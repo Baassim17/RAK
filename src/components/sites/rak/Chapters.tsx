@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeftRight, ArrowUpRight } from "lucide-react";
 import { ChapterSequence } from "./ChapterSequence";
 import { services } from "./content";
 
@@ -12,6 +14,29 @@ export function Chapters() {
         <h2 id="chap-heading" className="chap-heading">
           The Protection <span>We Provide</span>
         </h2>
+        <div className="chap-mobile">
+          <p className="chap-mobile-hint label">
+            <span>{services.length} services</span>
+            <span><ArrowLeftRight size={14} aria-hidden="true" /> Swipe to explore</span>
+          </p>
+          <ul className="chap-mobile-rail" role="list" aria-label="Security services" tabIndex={0}>
+            {services.map(({ id, no, title, body, img, alt }) => (
+              <li className="chap-mobile-card" key={id}>
+                <div className="chap-mobile-photo">
+                  <Image src={img} alt={alt} fill sizes="(max-width: 430px) calc(100vw - 68px), 360px" />
+                  <span className="label" aria-hidden="true">{no} / {total}</span>
+                </div>
+                <div className="chap-mobile-copy">
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                  <Link href={`/services#service-${id}`} aria-label={`View details for ${title}`}>
+                    View service details <ArrowUpRight size={15} aria-hidden="true" />
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="chap-layout">
           <div className="chap-backdrops" aria-hidden="true">
             <svg className="chap-blur-filter" width="0" height="0">

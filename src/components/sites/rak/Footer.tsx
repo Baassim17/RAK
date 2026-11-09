@@ -23,9 +23,10 @@ export function Footer() {
         <div className="ft-cols">
           <address className="ft-addr">
             <Link href="/" className="ft-brand">{company.name}</Link>
-            <span>{company.address}</span>
-            <span>{company.email}</span>
-            <span>{company.phone}</span>
+            <span>{company.address || company.hq}</span>
+            {company.email && <a href={`mailto:${company.email}`}>{company.email}</a>}
+            {company.phone && <a href={`tel:${company.phone.replace(/[^+\d]/g, "")}`}>{company.phone}</a>}
+            {(!company.email || !company.phone) && <Link href="/contact">Contact details</Link>}
           </address>
           <nav id="footer-explore" className="ft-links" aria-label="Explore">
             {nav.map((n) => (
@@ -33,9 +34,7 @@ export function Footer() {
             ))}
           </nav>
           <nav className="ft-links" aria-label="Policies">
-            {policies.map((p) => (
-              <Link key={p.href} href={p.href}>{p.label}</Link>
-            ))}
+            {policies.map(({ href, label }) => <Link key={href} href={href}>{label}</Link>)}
           </nav>
           <div className="ft-links">
             <span>Follow us</span>
@@ -49,7 +48,7 @@ export function Footer() {
 
         <div className="ft-legal">
           <span>© {new Date().getFullYear()} {company.name}. All rights reserved.</span>
-          <span>Licence: {company.licence}</span>
+          {company.licence ? <span>Licence: {company.licence}</span> : <Link href="/contact">Ask about our licence</Link>}
         </div>
       </div>
 

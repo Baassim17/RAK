@@ -19,9 +19,8 @@ const briefItems = [
 export default async function ContactPage({ searchParams }: PageProps<"/contact">) {
   const { service } = await searchParams;
   const initialService = services.find(({ id }) => id === service)?.title;
-  const email = company.email.startsWith("[") ? undefined : company.email;
-  const phone = company.phone.startsWith("[") ? undefined : company.phone;
-  const location = company.address.startsWith("[") ? company.hq : company.address;
+  const { email, phone } = company;
+  const location = company.address || company.hq;
 
   return (
     <div className="wrap">

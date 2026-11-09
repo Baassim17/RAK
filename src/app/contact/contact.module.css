@@ -116,4 +116,7 @@
 
 @media (max-width: 760px) {
   .intro, .workspace, .quickLinks { grid-template-columns: minmax(0, 1fr); }
+  .intro { padding-block: 100px 22px; }
+  .formPanel { scroll-margin-top: 88px; }
+  .formPanel header { margin-bottom: 18px; }
 }

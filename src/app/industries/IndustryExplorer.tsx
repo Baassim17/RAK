@@ -25,7 +25,7 @@ export function IndustryExplorer({ items }: { items: ExplorerItem[] }) {
         </div>
         <p className={styles.resultCount} role="status">{visibleCount} of {items.length} sectors</p>
       </div>
-      <ul className={styles.cards} role="list">
+      <ul className={styles.cards} data-overview={selected === "all"} role="list">
         {items.map(({ id, group, content }) => (
           <li key={id} hidden={selected !== "all" && group !== selected}>{content}</li>
         ))}

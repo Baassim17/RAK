@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  allowedDevOrigins: ["127.0.0.1"],
   // hide the Next.js dev-mode route indicator ("N" button); errors still surface
   devIndicators: false,
   images: {

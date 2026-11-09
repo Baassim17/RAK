@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { heroStory } from "./content";
+import { hasSeenPreloader } from "./preloaderSession";
 import { reducedMotion } from "./SmoothScroll";
 
 const FIRST_SLIDE_DELAY_MS = 1250;
@@ -18,7 +19,7 @@ export function Hero() {
   const played = useRef(false);
   const introRef = useRef<number | null>(null);
   // seconds before the intro plays: wait for the preloader on a first visit
-  const introDelay = () => (introRef.current ??= sessionStorage.getItem("rak-pre") ? 0.2 : 2.6);
+  const introDelay = () => (introRef.current ??= hasSeenPreloader() ? 0.2 : 2.6);
 
   const [slide, setSlide] = useState(0);
   const [ready, setReady] = useState(false);
@@ -29,9 +30,9 @@ export function Hero() {
 
   /* intro: frame opens, chrome fades up */
   useEffect(() => {
-    if (reducedMotion()) {
-      setReady(true);
-      return;
+    if (reducedMotion() || window.matchMedia("(max-width: 760px)").matches) {
+      const frameId = window.requestAnimationFrame(() => setReady(true));
+      return () => window.cancelAnimationFrame(frameId);
     }
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: introDelay(), onComplete: () => setReady(true) });
@@ -45,6 +46,10 @@ export function Hero() {
   useEffect(() => {
     if (!word.current || reducedMotion()) return;
     const first = !played.current;
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      played.current = true;
+      return;
+    }
     const split = SplitText.create(word.current, { type: "chars", charsClass: "hero-word-c" });
     const tl = gsap.timeline({
       delay: first ? introDelay() + 0.2 : 0,
@@ -85,7 +90,7 @@ export function Hero() {
     const advance = () => setSlide(slide + 1);
     const timer = window.setTimeout(() => {
       const heading = word.current;
-      if (!heading) {
+      if (!heading || window.matchMedia("(max-width: 760px)").matches) {
         advance();
         return;
       }

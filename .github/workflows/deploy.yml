@@ -27,16 +27,17 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm run build
+      - run: npm run check
 
   deploy:
     name: Deploy (${{ github.event_name == 'pull_request' && 'preview' || 'production' }})
     needs: quality
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    if: >-
+      vars.VERCEL_CLI_DEPLOY == 'true' &&
+      (github.ref == 'refs/heads/main' ||
+        (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository))
     environment:
       name: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
       url: ${{ steps.deploy.outputs.url }}

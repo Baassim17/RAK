@@ -6,7 +6,7 @@ Marketing website for **RAK Security Services LLC** — security guarding and pa
 
 | Route | Description |
 | --- | --- |
-| `/` | Home: hero, manifesto, chapters, process, client strip, quote form |
+| `/` | Home: hero, company overview, services, sectors, commitment and FAQ |
 | `/services` | Security services offered |
 | `/industries` | Industries served |
 | `/about` | Company overview |
@@ -23,10 +23,10 @@ Marketing website for **RAK Security Services LLC** — security guarding and pa
 
 ## Getting started
 
-Requires Node.js 24 or newer (see `.nvmrc`).
+Use Node.js 24 (see `.nvmrc`).
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -59,8 +59,21 @@ public/sites/rak/           # Logo, images and terrain assets
 
 ## Editing content
 
-All copy (company details, services, industries) lives in `src/components/sites/rak/content.ts`. Values wrapped in `[brackets]` are placeholders — replace them with confirmed company details (phone, email, address, licence, approvals) before launch.
+Core company copy, services and industries are in `src/components/sites/rak/content.ts`. The homepage logo strip uses illustrative brands. Use approved client logos if the strip is meant to show actual clients.
 
 ## Deployment
 
-Pushes and pull requests to `main` run lint, typecheck and build in GitHub Actions, then deploy to Vercel. Set these repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
+Import the repository in Vercel using the **Next.js** preset, Node.js **24.x** and the default build settings. Set the following public values in the Vercel project before building. For local development, put them in `.env.local`.
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_RAK_EMAIL` | Confirmed public inbox for quote and careers enquiries |
+| `NEXT_PUBLIC_RAK_PHONE` | Optional public phone number, including country code |
+| `NEXT_PUBLIC_RAK_ADDRESS` | Optional public office address |
+| `NEXT_PUBLIC_RAK_LICENCE` | Optional public licence number |
+
+The quote and careers forms open drafts in the visitor's email app. They do not send email from Vercel. Set the email address and test that a draft reaches the intended inbox before launching. Without an email address, Contact offers a copyable draft and Careers links to the company profile. Review the footer policy pages against company practices before launch.
+
+Use a Vercel preview to verify the public contact details and check the enquiry flow before promoting the build. For a local production check, run `npm run check` followed by `npm run start`.
+
+GitHub Actions runs the quality checks on pushes and pull requests to `main`. If you use GitHub Actions to deploy instead of Vercel's Git integration, set the repository variable `VERCEL_CLI_DEPLOY` to `true` and add the repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID`.

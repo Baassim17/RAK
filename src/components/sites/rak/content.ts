@@ -1,5 +1,4 @@
 // Single source of truth for site copy.
-// ⚠ Values wrapped in [brackets] are placeholders — replace with confirmed company details before launch.
 
 export const company = {
   name: "RAK Security Services LLC",
@@ -8,12 +7,11 @@ export const company = {
   hq: "Ras Al Khaimah, United Arab Emirates",
   coords: "25.79°N · 55.94°E",
   linkedin: "https://www.linkedin.com/company/raksecurityservices/",
-  phone: "[+971 — phone]",
-  email: "[info@ — email]",
+  phone: process.env.NEXT_PUBLIC_RAK_PHONE?.trim() || "",
+  email: process.env.NEXT_PUBLIC_RAK_EMAIL?.trim() || "",
   whatsapp: "", // e.g. "9715XXXXXXXX" — WhatsApp button is hidden until set
-  address: "[Street address], Ras Al Khaimah, UAE",
-  licence: "[Trade / security licence no.]",
-  approvals: "[Regulator approvals · insurance]",
+  address: process.env.NEXT_PUBLIC_RAK_ADDRESS?.trim() || "",
+  licence: process.env.NEXT_PUBLIC_RAK_LICENCE?.trim() || "",
 };
 
 export type Service = {
@@ -246,11 +244,11 @@ export const demoBrands = [
   { name: "Dune & Co.", logo: "dune-and-co" },
 ];
 
-export const faqs: { q: string; a: string; placeholder?: boolean }[] = [
-  { q: "How do I request a quotation?", a: "Send the form on our Contact page with a few details about your site or event. We'll come back to you with next steps." },
+export const faqs: { q: string; a: string }[] = [
+  { q: "How do I request a quotation?", a: "Use the form on our Contact page to prepare an enquiry with a few details about your site or event." },
   { q: "Can services be combined?", a: "Yes. Most sites are best protected by a mix — guarding supported by CCTV, for example. Tell us about yours and we'll propose a sensible combination." },
-  { q: "Where do you operate?", a: "We are headquartered in Ras Al Khaimah, UAE. [Confirm wider coverage area.]", placeholder: true },
-  { q: "Are your officers trained and licensed?", a: "[Add training, licensing and vetting details.]", placeholder: true },
+  { q: "Where do you operate?", a: "We are headquartered in Ras Al Khaimah, UAE. Include your site location in your enquiry so we can discuss coverage." },
+  { q: "Can I discuss training and licensing requirements?", a: "Include any site-specific training or licensing requirements in your enquiry so they can be discussed when planning coverage." },
   { q: "Are you hiring?", a: "We welcome security guard enquiries — see the Careers page." },
 ];
 

@@ -41,7 +41,7 @@ const enquirySteps = [
 ];
 
 export default function CareersPage() {
-  const enquiryEmailConfigured = !company.email.startsWith("[");
+  const enquiryEmailConfigured = Boolean(company.email);
 
   return (
     <>

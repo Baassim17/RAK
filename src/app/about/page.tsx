@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ClipboardCheck, Handshake, MapPin, ScanEye, ShieldCheck } from "lucide-react";
 import { Arrow } from "@/components/sites/rak/Art";
 import { company } from "@/components/sites/rak/content";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About RAK Security",
-  description: "Learn about RAK Security Services LLC, a guarding and patrol company based in Ras Al Khaimah, and the principles that guide its work.",
+  description: "Meet RAK Security Services LLC in Ras Al Khaimah and learn how we plan guarding, brief officers and review coverage for each site.",
 };
 
 const purpose = [
@@ -16,59 +17,55 @@ const purpose = [
 ];
 
 const values = [
-  { title: "Vigilance", copy: "Pay attention to routine activity so changes are easier to spot and report." },
-  { title: "Integrity and respect", copy: "Act honestly and treat residents, staff, visitors and the public with dignity." },
-  { title: "Professionalism", copy: "Communicate clearly, follow agreed procedures and stay composed on duty." },
-  { title: "Accountability", copy: "Know who owns each responsibility and carry it through from one shift to the next." },
+  { icon: ScanEye, title: "Vigilance", copy: "Know what a normal shift looks like so unusual activity is easier to spot, record and report." },
+  { icon: Handshake, title: "Integrity and respect", copy: "Apply site rules fairly and treat residents, staff and visitors with courtesy and discretion." },
+  { icon: ShieldCheck, title: "Professionalism", copy: "Arrive briefed, communicate clearly and stay composed when a situation needs attention." },
+  { icon: ClipboardCheck, title: "Accountability", copy: "Give each post clear responsibilities and carry outstanding issues through to the next shift." },
 ];
 
 const approach = [
-  { title: "Understand the site", copy: "Review how people use the property, where they enter and what changes throughout the day." },
-  { title: "Define the responsibilities", copy: "Agree which posts, routes and activities need coverage, and who handles concerns as they arise." },
-  { title: "Communicate and review", copy: "Use handovers, incident reporting and feedback to keep procedures aligned with the site as it changes." },
+  { title: "Understand the site", copy: "Review entrances, visitor and delivery routes, operating hours and the times when the site is busiest." },
+  { title: "Agree the coverage", copy: "Define where officers are posted, what they check on patrol and whom they contact when an issue needs attention." },
+  { title: "Brief and supervise officers", copy: "Walk through site rules, reporting procedures and shift handovers. Assign a supervisor so officers and site teams know who to contact." },
+  { title: "Review and adjust", copy: "Use incident reports and feedback from your team to revisit the plan as access points, working hours or priorities change." },
 ];
 
 export default function AboutPage() {
   return (
     <>
       <section className={`wrap ${styles.masthead}`} aria-labelledby="about-title">
-        <header className={styles.intro}>
-          <div>
+        <div className={styles.scene}>
+          <Image
+            src="/sites/rak/img/commitment-bg.webp"
+            alt=""
+            fill
+            preload
+            sizes="(max-width: 1680px) 92vw, 1552px"
+          />
+          <header className={styles.intro}>
             <p className={`label ${styles.eyebrow}`}>About RAK Security</p>
             <h1 id="about-title">Built on vigilance. <span>Driven by responsibility.</span></h1>
-          </div>
-          <div className={styles.introAside}>
-            <p>Based in Ras Al Khaimah, we provide professional guarding and patrol services. Our work begins with understanding the people and places we’re trusted to protect.</p>
+            <p className={styles.lead}>We provide guarding and patrol services in Ras Al Khaimah, with coverage planned around the people who use each site and the way it operates.</p>
             <Link href="/services" className="btn red">
               Explore our services <span className="dotb" aria-hidden="true"><Arrow size={14} /></span>
             </Link>
-          </div>
-        </header>
-        <figure className={styles.scene}>
-          <div className={styles.photo}>
-            <Image
-              src="/sites/rak/img/commitment-bg.webp"
-              alt="Uniformed security officers standing watch outside a commercial property at night"
-              fill
-              preload
-              sizes="(max-width: 1680px) 92vw, 1552px"
-            />
-          </div>
-          <figcaption>
-            <span>{company.name}</span>
-            <span>{company.hq}</span>
-          </figcaption>
-        </figure>
+          </header>
+        </div>
+        <div className={styles.identity}>
+          <strong>{company.name}</strong>
+          <span><MapPin size={16} aria-hidden="true" /> {company.hq}</span>
+        </div>
       </section>
 
       <section className={`wrap ${styles.purpose}`} aria-labelledby="about-purpose">
         <header>
-          <p className={`label ${styles.eyebrow}`}>Mission &amp; vision</p>
-          <h2 id="about-purpose">Why we do this work.</h2>
+          <p className={`label ${styles.eyebrow}`}>Who we are</p>
+          <h2 id="about-purpose">Security built around everyday operations.</h2>
+          <p className={styles.sectionCopy}>A busy reception, a residential entrance and an industrial gate have different routines. We help site teams decide where to place officers, when to schedule patrols and how CCTV can support coverage.</p>
         </header>
         <dl className={styles.purposeList}>
           {purpose.map(({ title, copy }) => (
-            <div key={title}>
+            <div key={title} data-reveal>
               <dt>{title}</dt>
               <dd>{copy}</dd>
             </div>
@@ -78,12 +75,15 @@ export default function AboutPage() {
 
       <section className={styles.values} aria-labelledby="about-values">
         <div className="wrap">
-          <p className={`label ${styles.eyebrow}`}>What we stand for</p>
-          <h2 id="about-values">Standards for every assignment.</h2>
+          <header className={styles.valuesIntro}>
+            <p className={`label ${styles.eyebrow}`}>What we stand for</p>
+            <h2 id="about-values">Standards for every assignment.</h2>
+            <p className={styles.sectionCopy}>Our standards guide how officers greet visitors, respond to concerns and hand over responsibility at the end of a shift.</p>
+          </header>
           <ul className={styles.valueGrid} role="list">
-            {values.map(({ title, copy }, index) => (
-              <li key={title}>
-                <span className="label" aria-hidden="true">0{index + 1}</span>
+            {values.map(({ icon: Icon, title, copy }, index) => (
+              <li key={title} data-reveal={index * 0.06}>
+                <Icon size={24} strokeWidth={1.6} aria-hidden="true" />
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </li>
@@ -93,13 +93,23 @@ export default function AboutPage() {
       </section>
 
       <section className={`wrap ${styles.approach}`} aria-labelledby="about-approach">
-        <header>
-          <p className={`label ${styles.eyebrow}`}>How we work</p>
-          <h2 id="about-approach">Start with the site.</h2>
-        </header>
+        <div>
+          <header>
+            <p className={`label ${styles.eyebrow}`}>How we work</p>
+            <h2 id="about-approach">From site brief to daily coverage.</h2>
+          </header>
+          <div className={styles.planningPhoto}>
+            <Image
+              src="/sites/rak/img/why-rak/planning.webp"
+              alt="Security personnel reviewing a site plan"
+              fill
+              sizes="(max-width: 760px) 92vw, 40vw"
+            />
+          </div>
+        </div>
         <ol className={styles.steps} role="list">
           {approach.map(({ title, copy }, index) => (
-            <li key={title}>
+            <li key={title} data-reveal={index * 0.045}>
               <span className="label" aria-hidden="true">0{index + 1}</span>
               <div><h3>{title}</h3><p>{copy}</p></div>
             </li>

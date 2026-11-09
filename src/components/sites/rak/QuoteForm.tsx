@@ -21,7 +21,7 @@ export function QuoteForm({ mode = "quote", initialService = services[0].title }
   const [draft, setDraft] = useState("");
   const [status, setStatus] = useState("");
   const draftRef = useRef<HTMLTextAreaElement>(null);
-  const configured = !company.email.startsWith("[");
+  const configured = Boolean(company.email);
   const quote = mode === "quote";
 
   useEffect(() => {

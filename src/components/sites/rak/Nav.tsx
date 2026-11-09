@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Arrow, Mark } from "./Art";
 import { company, nav } from "./content";
 import { getLenis } from "./SmoothScroll";
@@ -19,6 +19,8 @@ export function Nav() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [pressedLink, setPressedLink] = useState<string | null>(null);
+  const menuToggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     let last = window.scrollY;
@@ -46,11 +48,23 @@ export function Nav() {
     const closeOnDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) setOpen(false);
     };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      menuToggle.current?.focus({ preventScroll: true });
+    };
     desktop.addEventListener("change", closeOnDesktop);
-    return () => desktop.removeEventListener("change", closeOnDesktop);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      desktop.removeEventListener("change", closeOnDesktop);
+      window.removeEventListener("keydown", closeOnEscape);
+    };
   }, [open]);
 
-  const close = () => setOpen(false);
+  const close = () => {
+    setPressedLink(null);
+    setOpen(false);
+  };
 
   return (
     <>
@@ -75,7 +89,7 @@ export function Nav() {
               <Roll>Request a quote</Roll>
               <span className="dotb"><Arrow size={12} /></span>
             </Link>
-            <button className={`burger ${open ? "open" : ""}`} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+            <button ref={menuToggle} className={`burger ${open ? "open" : ""}`} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((o) => !o)}>
               <i />
               <i />
             </button>
@@ -83,20 +97,33 @@ export function Nav() {
         </div>
       </header>
 
-      <div className={`menu ${open ? "open" : ""}`} aria-hidden={!open}>
-        <div className="menu-list">
+      <div id="mobile-menu" className={`menu ${open ? "open" : ""}`} aria-hidden={!open} data-lenis-prevent>
+        <nav className="menu-list" aria-label="Mobile">
           {nav.map((n, i) => (
-            <Link key={n.href} href={n.href} onClick={close} tabIndex={open ? 0 : -1} style={{ transitionDelay: open ? `${0.15 + i * 0.05}s` : "0s" }}>
+            <Link
+              key={n.href}
+              href={n.href}
+              onClick={close}
+              onPointerDown={(event) => {
+                if (event.pointerType !== "mouse") setPressedLink(n.href);
+              }}
+              onPointerUp={() => setPressedLink(null)}
+              onPointerCancel={() => setPressedLink(null)}
+              data-pressed={pressedLink === n.href ? "" : undefined}
+              tabIndex={open ? 0 : -1}
+              aria-current={path === n.href ? "page" : undefined}
+              style={{ "--menu-enter-delay": `${150 + i * 50}ms` } as CSSProperties}
+            >
               <span className="label">0{i + 1}</span>
-              <span>{n.label}</span>
+              <span className="menu-link-text">{n.label}</span>
               <span className="label">{n.sub}</span>
             </Link>
           ))}
-        </div>
+        </nav>
         <div className="menu-side label">
           <div>Headquarters<b>{company.hq}</b></div>
-          <div>Telephone<b>{company.phone}</b></div>
-          <div>Email<b>{company.email}</b></div>
+          {company.phone && <div>Telephone<b>{company.phone}</b></div>}
+          {company.email && <div>Email<b>{company.email}</b></div>}
           <a href={company.linkedin} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1}>LinkedIn ↗</a>
         </div>
       </div>

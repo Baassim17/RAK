@@ -17,6 +17,7 @@ export function TrustedBy() {
             ))}
           </ul>
         </div>
+        <p className="label clients-caption">Illustrative brands</p>
       </div>
     </section>
   );

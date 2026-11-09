@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const DESKTOP_SEQUENCE = "(min-width: 961px) and (min-height: 680px) and (prefers-reduced-motion: no-preference)";
+const DESKTOP_SEQUENCE = "(min-width: 961px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)";
 
 export function ChapterSequence({ children }: { children: ReactNode }) {
   const stage = useRef<HTMLDivElement>(null);

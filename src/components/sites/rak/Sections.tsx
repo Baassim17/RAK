@@ -35,7 +35,7 @@ export function Faq() {
                   </button>
                 </h3>
                 <div id={answerId} className="faq-a" aria-hidden={!expanded}>
-                  <div><p className={faq.placeholder ? "ph" : undefined}>{faq.a}</p></div>
+                  <div><p>{faq.a}</p></div>
                 </div>
               </div>
             );

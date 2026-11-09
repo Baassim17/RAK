@@ -38,7 +38,7 @@ export function WhyChooseRak() {
         <ol className="wrap why-rak-list" role="list">
           {differentiators.map(({ id, title, description, evidence }, index) => (
             <li className="why-rak-row" key={id} data-reveal={index * 0.045}>
-              <span className="label why-rak-index" aria-hidden="true">_{String(index + 1).padStart(2, "0")}</span>
+              <span className="label why-rak-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <h3>{title}</h3>
               <p className="why-rak-copy">{description}</p>
               <p className="why-rak-evidence"><span className="label">Ask to review</span>{evidence}</p>

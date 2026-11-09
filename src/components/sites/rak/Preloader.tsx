@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { hasSeenPreloader, markPreloaderSeen } from "./preloaderSession";
 
 // 5×7 pixel glyphs (CTA-style pixel-grid preloader)
 const GLYPHS: Record<string, string[]> = {
@@ -18,9 +19,9 @@ export function Preloader() {
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    const seen = sessionStorage.getItem("rak-pre");
+    const seen = hasSeenPreloader();
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (seen || reduce) {
+    if (seen || reduce || window.matchMedia("(max-width: 760px)").matches) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time skip for returning visitors
       setGone(true);
       return;
@@ -30,7 +31,7 @@ export function Preloader() {
     const counter = { v: 0 };
     const tl = gsap.timeline({
       onComplete: () => {
-        sessionStorage.setItem("rak-pre", "1");
+        markPreloaderSeen();
         document.documentElement.style.overflow = "";
         setGone(true);
       },

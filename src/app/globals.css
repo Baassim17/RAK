@@ -116,7 +116,7 @@ a:hover .roll > span, button:hover .roll > span { transform: translateY(-50%); }
 .burger.open i:last-child { transform: translateY(-3.25px) rotate(-45deg); }
 @media (max-width: 1020px) { .nav-links { display: none; } }
 @media (width > 1020px) { .nav .burger { display: none; } }
-@media (max-width: 560px) { .nav .btn { display: none; } .brand small { display: none; } }
+@media (max-width: 560px) { .nav .btn { display: none; } }
 
 /* menu overlay (Axiom: links with descriptors) */
 .menu { --nav-hover: #ff6e73; position: fixed; inset: 0; z-index: 99; background: var(--charcoal); color: var(--light-grey); clip-path: inset(0 0 100% 0); transition: clip-path 0.9s var(--ease); display: grid; grid-template-columns: 1.4fr 1fr; padding: 120px var(--gut) 40px; gap: 40px; }
